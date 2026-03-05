@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#caa35a" />
+
+    <title>UNITAG Uniforms - Premium Corporate & Industrial Wear</title>
+    <meta name="description" content="Premium uniforms & custom stitching for corporate, hospitality, and industrial wear. Shop online, download catalog, and call us today!"/>
+
+    <meta property="og:title" content="UNITAG Uniforms - Quality Uniforms & Custom Stitching" />
+    <meta property="og:description" content="Premium uniforms & custom stitching for corporate, hospitality, and industrial wear."/>
+    <meta property="og:type" content="website" />
+    
+    <link rel="icon" href="assets/unitag-logo.jpeg" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="blob b3"></div>
+    </div>
+    <main class="wrap">
+      <section class="card" aria-label="Unitags Uniforms - Premium Uniforms & Custom Stitching">
+        <header class="top">
+          <div class="brandRow">
+            <div class="logo" aria-label="Unitags logo">
+              <img src="assets/unitag-logo.jpeg" alt="Unitags Uniforms logo" loading="eager"
+                decoding="async"
+                onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='grid';"
+              />
+              <div id="logoFallback" class="logoFallback" aria-hidden="true">
+                UNITAG<br />UNIFORMS
+              </div>
+            </div>
+            <div>
+              <h1 id="profileName">UNITAG UNIFORMS</h1>
+              <p id="profileTagline" class="tagline">
+                Official links • Socials • Contact • Location
+              </p>
+              <p id="profileBio" class="bio">
+                Premium uniforms & custom stitching — corporate, hospitality, and
+                industrial wear.
+              </p>
+              <div id="socialRow" class="socialRow" aria-label="Social icons"></div>
+              <div class="quickActions" aria-label="Quick actions">
+                <button class="actionBtn" type="button" id="shareBtn">
+                  <span>Share</span>
+                </button>
+                <button class="actionBtn" type="button" id="copyBtn">
+                  <span>Copy info</span>
+                </button>
+                <button class="actionBtn" type="button" id="vcardBtn">
+                  <span>Save contact</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="tools" aria-label="Tools">
+          <div class="searchWrap" aria-label="Search links">
+            <svg
+              class="chev"
+              style="width: 18px; height: 18px"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M10.5 18.2a7.7 7.7 0 1 1 0-15.4 7.7 7.7 0 0 1 0 15.4Z"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="m16.7 16.7 4 4"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search links (e.g. instagram, phone, maps)…"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <div id="links" class="links" aria-label="Link buttons"></div>
+
+        <footer class="footer" style="text-align:center;">
+          <small>
+            © <span id="year"></span> Unitag Uniforms | Designed by 
+            <a href="https://venusco.in" target="_blank">Venusco</a>
+          </small>
+        </footer>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      // ==========================================================
+      // FULL FEATURED LINK PAGE TEMPLATE (Edit PROFILE + LINKS)
+      // ==========================================================
+      const PROFILE = {
+        name: "UNITAG UNIFORMS",
+        tagline: "Uniforms • Custom Stitching • Bulk Orders",
+        bio: "Premium uniforms & custom stitching — corporate, hospitality, and industrial wear.",
+        website: "https://unitaguniforms.example",
+      };
+
+      // Dummy links (replace with your real links)
+      const LINKS = {
+        website: "https://www.unitaguniforms.com",
+        instagram: "https://instagram.com/unitag.uniforms",
+        facebook: "https://facebook.com/unitag.uniforms",
+        linkedin: "https://linkedin.com/company/unitag-uniforms",
+        whatsappNumber: "+971501234567", // include country code
+        phoneNumber: "+971501234567",
+        email: "sales@unitaguniforms.com",
+        googleMaps: "https://maps.app.goo.gl/8JZs6yq8dQp8u7hC8",
+        catalogUrl: "https://unitaguniforms.com/catalog.pdf", // Add your catalog PDF link here
+      };
+
+      const $ = (sel) => document.querySelector(sel);
+      const toastEl = $("#toast");
+
+      const icons = {
+        website: `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke="currentColor" stroke-width="1.6"/><path d="M2 12h20M12 2c-2.2 3-3.5 6.4-3.5 10s1.3 7 3.5 10m0-20c2.2 3 3.5 6.4 3.5 10s-1.3 7-3.5 10" stroke="currentColor" stroke-width="1.6"/></svg>`,
+        catalog: `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 2.8h15A1.7 1.7 0 0 1 21.2 4.5v15a1.7 1.7 0 0 1-1.7 1.7h-15A1.7 1.7 0 0 1 2.8 19.5v-15A1.7 1.7 0 0 1 4.5 2.8Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 7.5h10M7 12h10M7 16.5h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+        instagram: `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7.5 2.8h9A4.7 4.7 0 0 1 21.2 7.5v9A4.7 4.7 0 0 1 16.5 21.2h-9A4.7 4.7 0 0 1 2.8 16.5v-9A4.7 4.7 0 0 1 7.5 2.8Z" stroke="currentColor" stroke-width="1.6"/><path d="M12 16.1a4.1 4.1 0 1 0 0-8.2 4.1 4.1 0 0 0 0 8.2Z" stroke="currentColor" stroke-width="1.6"/><path d="M17.35 6.9h.01" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>`,
+        facebook: `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 8.5V7.1c0-.8.5-1.1 1.2-1.1h1.6V3.1h-2.3c-2.6 0-4 1.6-4 4.1v1.3H8v3h2.5V21h3.5v-9.5h2.8l.5-3H14Z" fill="currentColor" opacity=".92"/></svg>`,
+        linkedin: `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.7 9.2H3.6V21h3.1V9.2ZM5.15 3.2A1.8 1.8 0 1 0 5.2 6.8a1.8 1.8 0 0 0-.05-3.6ZM20.6 21h-3.1v-6.1c0-1.5-.03-3.4-2.1-3.4-2.1 0-2.4 1.6-2.4 3.3V21H10V9.2h3v1.6h.05c.42-.8 1.45-1.6 3-1.6 3.2 0 3.8 2.1 3.8 4.9V21Z" fill="currentColor" opacity=".92"/></svg>`,
+        whatsapp: `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2.7A9.2 9.2 0 0 0 4.2 17l-1 3.7 3.8-1A9.2 9.2 0 1 0 12 2.7Z" stroke="currentColor" stroke-width="1.6"/><path d="M9.2 7.9c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.2.2-.9.8-.9 2 0 1.1.9 2.2 1 2.4.1.2 1.8 2.9 4.4 3.9 2.1.8 2.6.6 3.1.5.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.5-.3l-1.7-.8c-.3-.1-.5-.2-.7.2-.2.4-.8 1.2-.9 1.4-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-1.8Z" fill="currentColor" opacity=".9"/></svg>`,
+        phone: `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.1 3.6 6.3 5.4c-.6.6-.7 1.6-.3 2.3 1.8 3.4 4.6 6.2 8 8 .8.4 1.7.3 2.3-.3l1.8-1.8c.5-.5 1.2-.6 1.8-.3l2.2 1.1c.7.4 1 1.2.7 2l-.8 2.4c-.2.7-.8 1.2-1.6 1.2C11.2 22.6 1.4 12.8 3.2 5.2c.1-.7.6-1.4 1.3-1.6l2.4-.8c.8-.3 1.7 0 2.1.8l1.1 2.2c.3.6.2 1.3-.3 1.8Z" fill="currentColor" opacity=".92"/></svg>`,
+        email: `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.2 6.6h15.6c.8 0 1.4.6 1.4 1.4v8.8c0 .8-.6 1.4-1.4 1.4H4.2c-.8 0-1.4-.6-1.4-1.4V8c0-.8.6-1.4 1.4-1.4Z" stroke="currentColor" stroke-width="1.6"/><path d="m4.1 8.1 7.1 5a1.5 1.5 0 0 0 1.6 0l7.1-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+        map: `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" stroke="currentColor" stroke-width="1.6"/><path d="M12 13.1a3.1 3.1 0 1 0 0-6.2 3.1 3.1 0 0 0 0 6.2Z" stroke="currentColor" stroke-width="1.6"/></svg>`,
+        chev: `<svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+      };
+
+      function sanitizeDigits(value) {
+        return String(value || "").replace(/[^\d]/g, "");
+      }
+
+      function isFilled(value) {
+        const v = String(value || "").trim();
+        return Boolean(v);
+      }
+
+      let toastTimer = null;
+      function toast(message) {
+        if (!toastEl) return;
+        if (toastTimer) window.clearTimeout(toastTimer);
+        toastEl.textContent = message;
+        toastEl.classList.add("show");
+        toastTimer = window.setTimeout(() => {
+          toastEl.classList.remove("show");
+        }, 2200);
+      }
+
+      async function copyText(text, label = "Copied") {
+        const value = String(text || "").trim();
+        if (!value) return toast("Nothing to copy yet.");
+        try {
+          await navigator.clipboard.writeText(value);
+          toast(`${label}: ${value}`);
+        } catch {
+          const ta = document.createElement("textarea");
+          ta.value = value;
+          ta.setAttribute("readonly", "true");
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+          toast(`${label}: ${value}`);
+        }
+      }
+
+      async function sharePage() {
+        const url = window.location.href;
+        const data = {
+          title: PROFILE.name,
+          text: `${PROFILE.name} — official links`,
+          url,
+        };
+
+        try {
+          if (navigator.share) {
+            await navigator.share(data);
+            toast("Share sheet opened.");
+          } else {
+            await copyText(url, "Link copied");
+          }
+        } catch {
+          // user cancelled — no toast needed
+        }
+      }
+
+      function downloadVCard() {
+        const tel = String(LINKS.phoneNumber || "").trim();
+        const email = String(LINKS.email || "").trim();
+        const url = String(PROFILE.website || "").trim();
+
+        const lines = [
+          "BEGIN:VCARD",
+          "VERSION:3.0",
+          `FN:${PROFILE.name}`,
+          tel ? `TEL;TYPE=WORK,VOICE:${tel}` : "",
+          email ? `EMAIL;TYPE=WORK:${email}` : "",
+          url ? `URL:${url}` : "",
+          "END:VCARD",
+        ].filter(Boolean);
+
+        const blob = new Blob([lines.join("\n")], { type: "text/vcard;charset=utf-8" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `${PROFILE.name.replace(/\s+/g, "-").toLowerCase()}-contact.vcf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+        toast("Contact card downloaded.");
+      }
+
+      function makeButton({ href, title, subtitle, leftIcon, ariaLabel }) {
+        const a = document.createElement("a");
+        a.className = "btn";
+        a.href = href;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.setAttribute("aria-label", ariaLabel || title);
+        a.innerHTML = `
+          ${leftIcon}
+          <div class="btnTitle">
+            <strong>${title}</strong>
+            <span>${subtitle}</span>
+          </div>
+          ${icons.chev}
+        `;
+        return a;
+      }
+
+      function buildLinkItems() {
+        const whatsappDigits = sanitizeDigits(LINKS.whatsappNumber);
+        const whatsappHref = whatsappDigits
+          ? `https://wa.me/${whatsappDigits}?text=${encodeURIComponent("Hi UNITAG Uniforms! I’d like to inquire about uniforms.")}`
+          : "";
+
+        return [
+          {
+            key: "website",
+            title: "Visit Website",
+            subtitle: "Shop & explore",
+            href: LINKS.website,
+            icon: icons.website,
+            search: [LINKS.website, "web", "shop"],
+          },
+          {
+            key: "catalog",
+            title: "Download Catalog",
+            subtitle: "PDF brochure",
+            href: LINKS.catalogUrl,
+            icon: icons.catalog,
+            search: [LINKS.catalogUrl, "pdf", "brochure", "download"],
+          },
+          {
+            key: "instagram",
+            title: "Instagram",
+            subtitle: "Follow & message us",
+            href: LINKS.instagram,
+            icon: icons.instagram,
+            search: [LINKS.instagram, "insta", "ig"],
+          },
+          {
+            key: "facebook",
+            title: "Facebook",
+            subtitle: "Updates & posts",
+            href: LINKS.facebook,
+            icon: icons.facebook,
+            search: [LINKS.facebook, "fb"],
+          },
+          {
+            key: "linkedin",
+            title: "LinkedIn",
+            subtitle: "Company profile",
+            href: LINKS.linkedin,
+            icon: icons.linkedin,
+            search: [LINKS.linkedin, "jobs", "company"],
+          },
+          {
+            key: "whatsapp",
+            title: "WhatsApp",
+            subtitle: String(LINKS.whatsappNumber || ""),
+            href: whatsappHref,
+            icon: icons.whatsapp,
+            search: [LINKS.whatsappNumber, "wa", "chat"],
+          },
+          {
+            key: "phone",
+            title: "Phone",
+            subtitle: String(LINKS.phoneNumber || ""),
+            href: LINKS.phoneNumber ? `tel:${String(LINKS.phoneNumber).trim()}` : "",
+            icon: icons.phone,
+            search: [LINKS.phoneNumber, "call", "tel"],
+          },
+          {
+            key: "email",
+            title: "Email",
+            subtitle: String(LINKS.email || ""),
+            href: LINKS.email ? `mailto:${String(LINKS.email).trim()}` : "",
+            icon: icons.email,
+            search: [LINKS.email, "mail"],
+          },
+          {
+            key: "maps",
+            title: "Google Maps",
+            subtitle: "Open location",
+            href: LINKS.googleMaps,
+            icon: icons.map,
+            search: [LINKS.googleMaps, "location", "map"],
+          },
+        ].filter((x) => isFilled(x.href));
+      }
+
+      function renderSocialRow(items) {
+        const row = $("#socialRow");
+        if (!row) return;
+        row.innerHTML = "";
+
+        const socials = items.filter((x) =>
+          ["instagram", "facebook", "linkedin", "whatsapp"].includes(x.key)
+        );
+
+        for (const it of socials) {
+          const a = document.createElement("a");
+          a.className = "iconChip";
+          a.href = it.href;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.setAttribute("aria-label", `Open ${it.title}`);
+          a.innerHTML = it.icon;
+          row.appendChild(a);
+        }
+      }
+
+      function applyProfile() {
+        $("#profileName").textContent = PROFILE.name;
+        $("#profileTagline").textContent = PROFILE.tagline;
+        $("#profileBio").textContent = PROFILE.bio;
+      }
+
+      function render() {
+        $("#year").textContent = new Date().getFullYear();
+        applyProfile();
+
+        const allItems = buildLinkItems();
+        renderSocialRow(allItems);
+
+        const container = $("#links");
+        container.innerHTML = "";
+
+        const q = String($("#searchInput")?.value || "").trim().toLowerCase();
+        const items = allItems.filter((it) => {
+          if (!q) return true;
+          const hay = [it.title, it.subtitle, ...(it.search || [])]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+          return hay.includes(q);
+        });
+
+        for (const it of items) {
+          container.appendChild(
+            makeButton({
+              href: it.href,
+              title: it.title,
+              subtitle: it.subtitle,
+              leftIcon: it.icon,
+              ariaLabel: `Open ${it.title}`,
+            })
+          );
+        }
+
+        const status = $("#statusText");
+        const shown = items.length;
+        const total = allItems.length;
+        status.textContent =
+          total === 0
+            ? "Add your links in the LINKS section."
+            : q
+              ? `Showing ${shown} of ${total}`
+              : `${total} link${total === 1 ? "" : "s"} available`;
+
+        if (total === 0) {
+          container.innerHTML = "";
+          const empty = document.createElement("div");
+          empty.style.padding = "10px 2px 2px";
+          empty.innerHTML = `<div style="color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.55;">
+            No links are configured yet. Edit the <strong>LINKS</strong> object in this file and paste your real URLs / numbers.
+          </div>`;
+          container.appendChild(empty);
+        } else if (shown === 0) {
+          container.innerHTML = "";
+          const empty = document.createElement("div");
+          empty.style.padding = "10px 2px 2px";
+          empty.innerHTML = `<div style="color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.55;">
+            No matches for <strong>${q.replace(/</g, "&lt;")}</strong>. Try “maps”, “phone”, or “instagram”.
+          </div>`;
+          container.appendChild(empty);
+        }
+      }
+
+      function wireUI() {
+        $("#shareBtn")?.addEventListener("click", sharePage);
+        $("#copyBtn")?.addEventListener("click", async () => {
+          const lines = [
+            PROFILE.name,
+            LINKS.phoneNumber ? `Phone: ${LINKS.phoneNumber}` : "",
+            LINKS.whatsappNumber ? `WhatsApp: ${LINKS.whatsappNumber}` : "",
+            LINKS.email ? `Email: ${LINKS.email}` : "",
+            LINKS.googleMaps ? `Maps: ${LINKS.googleMaps}` : "",
+            PROFILE.website ? `Website: ${PROFILE.website}` : "",
+          ].filter(Boolean);
+          await copyText(lines.join("\n"), "Copied");
+        });
+        $("#vcardBtn")?.addEventListener("click", downloadVCard);
+        $("#searchInput")?.addEventListener("input", render);
+      }
+
+      wireUI();
+      render();
+    </script>
+  </body>
+</html>
