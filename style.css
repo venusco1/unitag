@@ -276,6 +276,48 @@
     outline-offset: 2px;
     }
 
+    .profileHeader{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:10px;
+}
+
+.logo img{
+  width:110px;
+  height:110px;
+  object-fit:cover;
+}
+
+.tagline{
+  font-size:14px;
+  opacity:0.8;
+}
+
+.bio{
+  font-size:14px;
+  max-width:320px;
+}
+
+.socialRow{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+}
+
+.quickActions{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+.actionBtn{
+  padding:8px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+}
     .actionBtn span {
     font-weight: 650;
     font-size: 12px;
@@ -814,6 +856,7 @@
     .logo {
     width: 86px;
     height: 86px;
+    margin-top: 20px;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -848,6 +891,7 @@
     h1 {
     margin: 0;
     font-size: 26px;
+    margin-top: 10px;
     line-height: 1.15;
     letter-spacing: 0.2px;
     }
