@@ -526,6 +526,37 @@
     outline-offset: 2px;
     }
 
+    .groupCard {
+      display: grid;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .groupToggle {
+      justify-items: stretch;
+      text-align: left;
+    }
+
+    .groupOptions {
+      display: grid;
+      gap: 8px;
+      padding: 8px 0;
+    }
+
+    .groupOptions [class~="btn"] {
+      margin: 0;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: none;
+    }
+
+    .groupOptions [class~="btn"]:hover {
+      transform: translateY(0);
+      border-color: var(--brand);
+      background: rgba(212, 175, 55, 0.08);
+      box-shadow: none;
+    }
+
     .btnTitle {
     display: grid;
     gap: 3px;
@@ -800,6 +831,9 @@
         transparent 62%
         ),
         linear-gradient(160deg, var(--bg0), var(--bg1));
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
     }
 
     a {
@@ -1351,3 +1385,12 @@
     }
     }
 
+
+    .quickActions {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: center; /* center vertically */
+  gap: 12px; /* space between buttons */
+  margin-top: 15px;
+  margin-bottom: 10px;
+}   
