@@ -283,12 +283,6 @@ outline-offset: 2px;
   gap:10px;
 }
 
-.logo img{
-  width:110px;
-  height:110px;
-  object-fit:cover;
-}
-
 .tagline{
   font-size:14px;
   opacity:0.8;
