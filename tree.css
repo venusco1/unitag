@@ -200,34 +200,37 @@ margin-top: 14px;
 }
 
 .iconChip {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-width: 44px;
-height: 44px;
-border-radius: 50%;
-border: 1px solid var(--border);
-background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-transition: all 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
-cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transition: filter 200ms ease;
+  cursor: pointer;
 }
 
 .iconChip:hover {
-transform: translateY(-3px) scale(1.05);
-border-color: var(--brand);
-background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
-box-shadow: 0 12px 30px rgba(212, 175, 55, 0.25);
+  transform: none;
+  background: transparent;
+  box-shadow: none;
 }
 
-.iconChip svg {
-width: 20px;
-height: 20px;
-color: var(--text);
-transition: color 200ms ease;
+.iconChip svg,
+.iconChip img {
+  width: 20px;
+  height: 20px;
+  display: block;
+  transition: filter 200ms ease, color 200ms ease;
 }
 
-.iconChip:hover svg {
-color: var(--brand);
+.iconChip:hover svg,
+.iconChip:hover img {
+  filter: brightness(1.12);
+  color: var(--brand);
 }
 
 .iconChip:focus-visible {
