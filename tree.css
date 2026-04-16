@@ -24,9 +24,9 @@
 --radius: 20px;
 }
 
-* {
+/* * {
 box-sizing: border-box;
-}
+} */
 
 html,
 body {
@@ -121,31 +121,25 @@ gap: 18px;
 align-items: flex-start;
 }
 
-.logo {
-width: min(280px, 72vw);
-height: min(280px, 72vw);
+...logo {
+width: clamp(200px, 56vw, 320px);
+height: clamp(200px, 56vw, 320px);
+border-radius: 28px;
+background: rgba(255, 255, 255, 0.10);
+border: 2px solid rgba(212, 175, 55, 0.18);
 display: grid;
 place-items: center;
-transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease;
+transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease, border-color 300ms ease;
 }
 
 .logo:hover {
 transform: translateY(-6px) scale(1.02);
-box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
 }
 
 .logo img {
-width: 88%;
-height: 88%;
-width: 100%;
-height: 100%;
-letter-spacing: 0.12em;
-font-weight: 700;
-font-size: 13px;
-text-align: center;
-line-height: 1.1;
-padding: 12px 8px;
-text-transform: uppercase;
+width: 72%;
+height: 92%;
+object-fit: contain;
 }
 
 h1 {
@@ -163,12 +157,46 @@ background-clip: text;
 
 .profileTitleImage {
   display: block;
-  width: 100%;
-  max-width: 250px;
+  width: clamp(220px, 68vw, 320px);
+  max-width: 100%;
   height: auto;
   margin: 0;
-  margin-top: 5px;
   margin-bottom: 10px;
+}
+
+.profileHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.bio {
+  font-size: 14px;
+  max-width: 440px;
+  width: 100%;
+}
+
+.quickActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  max-width: 460px;
+}
+
+.actionBtn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  min-width: 145px;
+  flex: 1 1 auto;
+  max-width: 220px;
 }
 
 .visuallyHidden {
@@ -771,35 +799,61 @@ font-size: 12px;
 color: var(--text-light);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
 .wrap {
-    padding: 28px 12px 40px;
+    padding: 28px 14px 40px;
 }
 
 .card {
     max-width: 100%;
 }
 
-.brandRow {
-    grid-template-columns: 80px 1fr;
-    gap: 14px;
-}
-
 .logo {
-    width: 80px;
-    height: 80px;
+    width: clamp(210px, 66vw, 280px);
+    height: clamp(210px, 66vw, 280px);
 }
 
-h1 {
-    font-size: 24px;
+.profileTitleImage {
+    width: clamp(200px, 72vw, 260px);
+}
+
+.bio {
+    max-width: 100%;
+    padding: 0 4px;
 }
 
 .quickActions {
-    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 
-.servicesGrid {
+.actionBtn {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+}
+}
+
+@media (max-width: 480px) {
+.brandRow {
     grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.top {
+    padding: 24px 12px 24px;
+}
+
+.profileTitleImage {
+    width: clamp(180px, 80vw, 240px);
+}
+
+.tagline,
+.bio {
+    font-size: 13px;
+}
+
+.quickActions {
+    gap: 8px;
 }
 }
 
