@@ -178,6 +178,7 @@
         whatsapp: "+966559512393",
         email: "unitaguniforms@gmail.com",
         locations: ["https://maps.app.goo.gl/bXcT9GAc4eRAmrYR8?g_st=aw", "https://maps.app.goo.gl/ExbkAf93jj8Kh5qW7"],
+        googleReview: "https://g.page/r/CYr_opCsY3BaEAE/review",
         // When this page is hosted at `/tree`, relative paths like `assets/...` break.
         catalogUrl: "https://www.unitaguniforms.com/assets/catalog.pdf",
       };
@@ -193,6 +194,7 @@
         website: `<img class="icon iconImg" src="${ASSET_ICON_PATH}/web.png" alt="" aria-hidden="true" loading="lazy" />`,
         instagram: `<img class="icon iconImg" src="${ASSET_ICON_PATH}/ig.png" alt="" aria-hidden="true" loading="lazy" />`,
         facebook: `<img class="icon iconImg" src="${ASSET_ICON_PATH}/fb.png" alt="" aria-hidden="true" loading="lazy" />`,
+        google: `<img class="icon iconImg" src="${ASSET_ICON_PATH}/google.png" alt="" aria-hidden="true" loading="lazy" />`,
         linkedin: `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.7 9.2H3.6V21h3.1V9.2ZM5.15 3.2A1.8 1.8 0 1 0 5.2 6.8a1.8 1.8 0 0 0-.05-3.6ZM20.6 21h-3.1v-6.1c0-1.5-.03-3.4-2.1-3.4-2.1 0-2.4 1.6-2.4 3.3V21H10V9.2h3v1.6h.05c.42-.8 1.45-1.6 3-1.6 3.2 0 3.8 2.1 3.8 4.9V21Z" fill="currentColor" opacity=".92"/></svg>`,
         phone: `<img class="icon iconImg" src="${ASSET_ICON_PATH}/call.png" alt="" aria-hidden="true" loading="lazy" />`,
         email: `<img class="icon iconImg" src="${ASSET_ICON_PATH}/mail.png" alt="" aria-hidden="true" loading="lazy" />`,
@@ -313,13 +315,14 @@
             icon: icons.catalog,
             search: [LINKS.catalogUrl, "pdf", "brochure", "download"],
           },
+          ...buildLocationGroup(),
           {
-            key: "location",
-            title: "Location",
-            subtitle: "Find us on map",
-            href: LINKS.locations && LINKS.locations[0] ? LINKS.locations[0] : "",
-            icon: icons.map,
-            search: [LINKS.locations, "map", "location", "address"],
+            key: "googleReview",
+            title: "Google Review",
+            subtitle: "Leave a review",
+            href: LINKS.googleReview,
+            icon: icons.google,
+            search: [LINKS.googleReview, "review", "google"],
           },
           {
             key: "whatsapp",
@@ -329,14 +332,7 @@
             icon: icons.whatsapp,
             search: [LINKS.whatsapp, "wa", "chat"],
           },
-          {
-            key: "phone",
-            title: "Contact Numbers",
-            subtitle: LINKS.phones && LINKS.phones.length > 0 ? LINKS.phones[0] : "",
-            href: LINKS.phones && LINKS.phones[0] ? `tel:${String(LINKS.phones[0]).trim()}` : "",
-            icon: icons.phone,
-            search: [LINKS.phones, "phone", "call", "contact"],
-          },
+          ...buildContactGroup(),
           {
             key: "website",
             title: "Visit Website",
@@ -370,7 +366,7 @@
             search: [LINKS.email, "mail"],
           },
 
-        ].filter((x) => isFilled(x.href));
+        ].filter((x) => (x.type === "group" ? true : isFilled(x.href)));
       }
 
       function buildPhoneOptions() {
@@ -397,8 +393,39 @@
           }));
       }
 
+      function buildContactGroup() {
+        const phones = buildPhoneOptions();
+        if (phones.length === 0) return [];
+        if (phones.length === 1) return phones;
+
+        return [{
+          key: "contact",
+          type: "group",
+          title: "Contact",
+          subtitle: "Choose a number",
+          icon: icons.phone,
+          options: phones,
+          search: [phones.map((item) => item.subtitle).join(" "), "contact", "phone", "call"],
+        }];
+      }
+
+      function buildLocationGroup() {
+        const locations = buildLocationOptions();
+        if (locations.length === 0) return [];
+        if (locations.length === 1) return locations;
+
+        return [{
+          key: "locations",
+          type: "group",
+          title: "Locations",
+          subtitle: "Choose a location",
+          icon: icons.map,
+          options: locations,
+          search: [locations.map((item) => item.subtitle).join(" "), "location", "map", "address"],
+        }];
+      }
+
       function buildLinkItems() {
-        // primary links + aggregated groups handled in render()
         return buildPrimaryLinkItems();
       }
 
@@ -517,6 +544,11 @@
         });
 
         for (const it of items) {
+          if (it.type === "group") {
+            container.appendChild(makeExpandableGroup(it));
+            continue;
+          }
+
           container.appendChild(
             makeButton({
               href: it.href,
