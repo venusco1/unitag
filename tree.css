@@ -122,38 +122,23 @@ align-items: flex-start;
 }
 
 .logo {
-width: clamp(130px, 22vw, 180px);
-height: clamp(130px, 22vw, 180px);
-/* border-radius: 24px; */
-/* background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)); */
-/* border: 2px solid var(--border); */
-overflow: hidden;
+width: min(280px, 72vw);
+height: min(280px, 72vw);
 display: grid;
 place-items: center;
-/* box-shadow: 0 8px 32px rgba(212, 175, 55, 0.15); */
-transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease;
 }
 
 .logo:hover {
-transform: translateY(-4px);
-/* box-shadow: 0 16px 48px rgba(212, 175, 55, 0.25); */
-border-color: rgba(212, 175, 55, 0.3);
+transform: translateY(-6px) scale(1.02);
+box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
 }
 
 .logo img {
+width: 88%;
+height: 88%;
 width: 100%;
 height: 100%;
-object-fit: contain;
-display: block;
-}
-
-.logoFallback {
-display: none;
-width: 100%;
-height: 100%;
-background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), transparent),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
-color: var(--brand);
 letter-spacing: 0.12em;
 font-weight: 700;
 font-size: 13px;
@@ -179,7 +164,7 @@ background-clip: text;
 .profileTitleImage {
   display: block;
   width: 100%;
-  max-width: 270px;
+  max-width: 250px;
   height: auto;
   margin: 0;
   margin-top: 5px;
