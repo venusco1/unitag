@@ -99,9 +99,9 @@
       <h1 id="profileName" class="visuallyHidden">UNITAG UNIFORMS</h1>
       <img id="profileTitleImage" src="assets/unitag-uniforms-title.png" alt="UNITAG UNIFORMS" class="profileTitleImage" loading="eager" decoding="async" />
 
-      <p id="profileTagline" class="tagline">
+      <!-- <p id="profileTagline" class="tagline">
         Official links • Socials • Contact • Locations
-      </p>
+      </p> -->
 
       <!-- <p id="profileBio" class="bio">
         Premium, tailor-made uniforms for hospitality, corporate, and industrial teams — designed for comfort, durability, and a polished brand presence.
@@ -136,7 +136,7 @@
 
       const PROFILE = {
         name: "UNITAG UNIFORMS",
-        tagline: "Uniforms • Custom Stitching • Bulk Orders",
+        tagline: "",
         bio: "",
         website: "https://www.unitaguniforms.com/",
       };
@@ -491,8 +491,12 @@
       }
 
       function applyProfile() {
-        $("#profileName").textContent = PROFILE.name;
-        $("#profileTagline").textContent = PROFILE.tagline;
+        const profileName = $("#profileName");
+        if (profileName) profileName.textContent = PROFILE.name;
+
+        const profileTagline = $("#profileTagline");
+        if (profileTagline) profileTagline.textContent = PROFILE.tagline;
+
         const profileBio = $("#profileBio");
         if (profileBio) profileBio.textContent = PROFILE.bio;
       }
