@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#caa35a" />
 
   <!-- Primary SEO -->
-  <title>Unitag Uniforms | Premium Corporate, Industrial & Hospitality Uniforms</title>
+  <title>Unitag Uniforms | Premium Corporate & Industrial Uniforms</title>
   <meta name="description" content="Unitag Uniforms provides premium corporate, industrial, hospitality, and customized uniforms. High-quality stitching, bulk orders, and professional uniform solutions." />
   <meta name="keywords" content="uniform suppliers, corporate uniforms, industrial uniforms, hospitality uniforms, custom uniforms, company uniforms, workwear uniforms, school uniforms, uniform stitching service" />
   <meta name="author" content="Unitag Uniforms" />
@@ -103,41 +103,15 @@
         Official links • Socials • Contact • Locations
       </p>
 
-      <p id="profileBio" class="bio">
+      <!-- <p id="profileBio" class="bio">
         Premium, tailor-made uniforms for hospitality, corporate, and industrial teams — designed for comfort, durability, and a polished brand presence.
-      </p>
+      </p> -->
 
       <div id="socialRow" class="socialRow" aria-label="Social icons"></div>
-
-      <div class="quickActions" aria-label="Quick actions">
-        <button class="actionBtn" type="button" id="shareBtn">
-          <span>Share Page</span>
-        </button>
-
-        <button class="actionBtn" type="button" id="copyBtn">
-          <span>Copy Info</span>
-        </button>
-      </div>
 
     </div>
 
   </header>
-
-  <div class="tools" aria-label="Link tools">
-    <div class="searchWrap">
-      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="11" cy="11" r="7" fill="none"
-          stroke="currentColor" stroke-width="1.6"/>
-        <line x1="16.65" y1="16.65" x2="21" y2="21"
-          stroke="currentColor" stroke-width="1.6"
-          stroke-linecap="round"/>
-      </svg>
-
-      <input id="searchInput" type="search"
-        placeholder="Search links..."
-        aria-label="Search links" />
-    </div>
-  </div>
 
   <div id="links" class="links" aria-live="polite"></div>
 
@@ -163,7 +137,7 @@
       const PROFILE = {
         name: "UNITAG UNIFORMS",
         tagline: "Uniforms • Custom Stitching • Bulk Orders",
-        bio: "Premium, tailor-made uniforms for hospitality, corporate, and industrial teams — designed for comfort, durability, and a polished brand presence.",
+        bio: "",
         website: "https://www.unitaguniforms.com/",
       };
 
@@ -174,7 +148,7 @@
         facebook: "https://www.facebook.com/share/1Bv55Vv7Ut/",
         // linkedin: "https://linkedin.com/company/unitag-uniforms",
         phones: ["+966506444915", "+966559512393", "+966546787553"],
-        whatsapp: "+966559512393",
+        whatsapp: "+966506444915",
         email: "unitaguniforms@gmail.com",
         locations: ["https://maps.app.goo.gl/bXcT9GAc4eRAmrYR8?g_st=aw", "https://maps.app.goo.gl/ExbkAf93jj8Kh5qW7"],
         googleReview: "https://g.page/r/CYr_opCsY3BaEAE/review",
@@ -519,7 +493,8 @@
       function applyProfile() {
         $("#profileName").textContent = PROFILE.name;
         $("#profileTagline").textContent = PROFILE.tagline;
-        $("#profileBio").textContent = PROFILE.bio;
+        const profileBio = $("#profileBio");
+        if (profileBio) profileBio.textContent = PROFILE.bio;
       }
 
       function render() {
@@ -562,12 +537,14 @@
         const status = $("#statusText");
         const shown = items.length;
         const total = allItems.length;
-        status.textContent =
-          total === 0
-            ? "Add your links in the LINKS section."
-            : q
-              ? `Showing ${shown} of ${total}`
-              : `${total} link${total === 1 ? "" : "s"} available`;
+        if (status) {
+          status.textContent =
+            total === 0
+              ? "Add your links in the LINKS section."
+              : q
+                ? `Showing ${shown} of ${total}`
+                : `${total} link${total === 1 ? "" : "s"} available`;
+        }
 
         if (total === 0) {
           container.innerHTML = "";
@@ -589,20 +566,7 @@
       }
 
       function wireUI() {
-        $("#shareBtn")?.addEventListener("click", sharePage);
-        $("#copyBtn")?.addEventListener("click", async () => {
-          const lines = [
-            PROFILE.name,
-            LINKS.phoneNumber ? `Phone: ${LINKS.phoneNumber}` : "",
-            LINKS.whatsappNumber ? `WhatsApp: ${LINKS.whatsappNumber}` : "",
-            LINKS.email ? `Email: ${LINKS.email}` : "",
-            LINKS.googleMaps ? `Maps: ${LINKS.googleMaps}` : "",
-            PROFILE.website ? `Website: ${PROFILE.website}` : "",
-          ].filter(Boolean);
-          await copyText(lines.join("\n"), "Copied");
-        });
         $("#vcardBtn")?.addEventListener("click", downloadVCard);
-        $("#searchInput")?.addEventListener("input", render);
       }
 
       wireUI();
